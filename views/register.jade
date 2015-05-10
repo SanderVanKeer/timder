@@ -1,0 +1,15 @@
+extends layout
+
+block content
+ h1 Schrijf je in op tIMDer!
+ div
+  form(class='form-signin', action='/signup', method='POST')
+   input(type='text', name='username', placeholder='Gebruikersnaam',required, autofocus)
+   input(type='password', name='password', placeholder='Wachtwoord', required)
+   input(type='email', name='email', placeholder='E-mail',required)
+   input(type='text', name='firstName', placeholder='Voornaam',required)
+   input(type='text', name='lastName', placeholder='Achternaam',required)
+   button(type='submit') Inschrijven
+ #message
+  if message
+   h1 #{message}

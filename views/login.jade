@@ -1,6 +1,7 @@
 extends layout
 
 block content
+<<<<<<< HEAD
   a(href="/") Back to home
 
   h1 Log in
@@ -15,3 +16,20 @@ block content
     p Need an account?
     a.btn.btn-default(href="/signup") Sign up here
 
+=======
+ div#container
+  h1 Schrijf je in op tIMDer!
+  div.form-group
+   form(class='form-signin', action='/login', method='POST')
+    input.form-control(type='text', name='username' placeholder='Gebruikersnaam',required, autofocus)
+    input.form-control(type='password', name='password' placeholder='Wachtwoord', required)
+    button.btn.btn-primary(type='submit') Log in
+  a(href='/signup') Maak een account
+   #message
+   if message
+    h1 #{message}
+
+  script(src="/socket.io/socket.io.js")
+  script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
+  script(src="/javascripts/index.js")
+>>>>>>> views

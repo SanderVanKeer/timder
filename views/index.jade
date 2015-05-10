@@ -1,5 +1,15 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 TIMDER
+
+  form(method="post")
+    label(for="companyName") Your company name
+    input.form-control(type="text", name="companyName", id="companyName", placeholder="Thomas More", autofocus)
+    button.btn.btn-primary(type="submit", id="startSwiping") Start Swiping
+
+    p Are you a student?
+    a.btn.btn-default(href="/login") Log in
+    a.btn.btn-default(href="/signup") Sign up
+
+  script(src="/javascripts/index.js")

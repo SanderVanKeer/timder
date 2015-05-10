@@ -1,0 +1,90 @@
+$primaryColor: #730A09;
+$secondaryColor: #3498db;
+
+.background{
+
+	background-image: url("../images/bg.JPG") ; 
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    padding-top: 10px;
+	
+
+}
+.containerHome
+{
+	display:block;
+	width:500px;
+	text-align:center;
+	margin-left: auto;
+	margin-right: auto;
+	background-color:rgba(255,255,255,0.8);
+	
+    color: $primaryColor;
+   	margin-top: 10%;
+
+
+}
+
+.btn.btn-primary{
+
+	margin-top: 15px;
+}
+
+#companyName{
+
+	width:400px;
+	margin-left: 50px;
+	margin-right: 50px;
+	background-color: white;
+	opacity:0.6;
+
+}
+
+input:focus{
+
+	color:$primaryColor;
+}
+
+label
+{
+	font-size: 150%;
+	padding-top:50px;
+}
+
+p 
+{
+	font-size: 180%;
+	padding-top: 75px;
+
+}
+
+.btn.btn-primary{
+
+	border-color: black;
+	color: $primaryColor;
+	background-color:white;
+	
+
+}
+
+.btn.btn-primary:hover,
+.btn.btn-primary:active,
+.btn.btn-primary:visited{
+
+	background-color:$primaryColor;
+	color:white;
+}
+
+img 
+{
+	width: 300px;
+}
+
+#login
+{
+	margin-bottom: 15px;
+}

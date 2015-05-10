@@ -1,8 +1,11 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+#container, .containerHome {
+  display: block;
+  width: 500px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto; }
 
-a {
-  color: #00B7FF;
-}
+.btn.btn-primary {
+  margin-top: 15%; }
+
+/*# sourceMappingURL=style.css.map */

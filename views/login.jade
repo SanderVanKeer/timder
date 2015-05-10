@@ -1,13 +1,14 @@
 extends layout
 
 block content
- div#container
-  h1 Log in
-  div.form-group
-   form(action='/login', method='POST')
-    input.form-control(type='text', name='username' placeholder='Gebruikersnaam', autofocus)
-    input.form-control(type='password', name='password' placeholder='Wachtwoord')
-    button.btn.btn-primary(type='submit') Log in
+  div#container
+    h1 Log in
+    form(action='/login', method='POST')
+      label(for="email") Email
+      input.form-control(type='text', name='email', id="email", autofocus)
+      label(for="password")
+      input.form-control(type='password', name='password', id="password")
+      button.btn.btn-primary(type='submit') Log in
 
-  p Need an acount?
-  a.btn.btn-default(href='/signup') Sign up here
+    p Need an acount?
+    a.btn.btn-default(href='/signup') Sign up here

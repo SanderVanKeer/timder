@@ -36,18 +36,66 @@ io.on('connection', function(socket) {
   });
 
   // add company
-  socket.on
+  socket.on('checkCompany', function(newCompany) {
+    Company.findOne(newCompany, function(err, existingCompany) {
+      if(existingCompany) {
+        console.log('company "' + existingCompany.name + '" already exists.');
+        socket.emit('companyExists', existingCompany);
+      } else {
+        console.log('company "' + newCompany.name + '" is available.');
+        io.emit('companyAvailable', newCompany);
+      }
+    });
+  });
+
+  socket.on('addCompany', function(newCompany) {
+    Company.create(newCompany, function(err, newCompany) {
+      console.log('company "' + newCompany.name + '" saved.');
+      console.log(newCompany);
+    });
+  });
+
+  socket.on('getCompanyInfo', function() {
+    Company.find({_id: '554fcdb98f56a278af9118c5'}).exec(function(company) {
+      socket.emit('showCompanyInfo', company);
+    })
+  })
 });
 
 io.on('connect', function(socket) {
-  console.log('connected');
-})
+
+});
+
+/**
+ * ======
+ *   DB
+ * ======
+ */
+
+// dependencies
+var mongoose = require('mongoose');
+var restful = require('node-restful');
+
+// connect
+mongoose.connect('mongodb://localhost/timder');
+
+// models
+var Company = app.company = restful.model('Company', mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  }
+}, {collection: 'companies'})).methods(['get', 'post', 'put', 'delete']);
+Company.register(app, '/companies');
+
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port, function() {
+  console.log("Started on PORT 3000");
+});
 server.on('error', onError);
 server.on('listening', onListening);
 

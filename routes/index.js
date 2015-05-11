@@ -21,6 +21,18 @@ router.get('/swiping', function(req, res) {
 	res.render('swiping');
 });
 
+/* GET admin page.*/
+router.get('/admin', function(req, res) {
+	res.render('admin');
+});	
+
+/* post admin page.*/
+router.post('/admin', function(req, res) {
+	console.log('admin');
+
+});
+
+
 module.exports = router;
 
 

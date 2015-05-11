@@ -1,0 +1,14 @@
+extends layout
+
+block content
+
+ div.container
+  h1.text-center Make an admin!
+  div.form-group
+   form(method="post", action="/admin")
+    label(for = "email") Email:
+    input.form-control(id="email", name="email")
+    label(for="password") Password:
+    input.form-control(id="password", name="password", type="password")
+    button.btn.btn-default(id="btnAdmin", type="submit") Make admin!  
+ script(src="/javascripts/admin.js")   

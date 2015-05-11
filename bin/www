@@ -62,6 +62,19 @@ io.on('connection', function(socket) {
     });
   });
 
+
+  socket.on('deleteStudent',function(data){
+   
+
+
+   Student.remove({_id: data}, function(err, b) {
+      if (err) { console.log(err); }
+      console.log("Student with id" +data+ " deleted");
+      io.emit('studentDeleted', b);
+    });
+
+  });
+
   //meetings
 
   socket.on('addMeet',function(newMeet){

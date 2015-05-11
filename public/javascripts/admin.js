@@ -24,14 +24,10 @@ $(document).ready(function() {
 
     console.log(newStudent);
 	socket.emit("addStudent", newStudent);
+	location.reload();
 
   });
 
-
-
-
-
-   $('#students').on('click',function(){
 
    	socket.emit('getStudents');
    	socket.on('listStudents',function(students){
@@ -40,18 +36,25 @@ $(document).ready(function() {
    		var length = students.length;
    		for(var i = 0; i<length;i++){
 
-   			$('#listStudents').append('<li>'+students[i].firstName
-   				+' '+ students[i].lastName+ '             ' + '<button>delete</button>' +'</li>');
+   			$('#listStudents').append('<div id="'+ students[i]._id + '"><li>'+students[i].firstName
+   				+' '+ students[i].lastName+ '' + '<button value="'+students[i]._id+'" type="submit" class="btnDelete">delete</button>' +'</li></div>');
+
+   				console.log(students[i]._id);
 
    		}
 
 
+
+
+
+   $('#students').on('click',function(){
+
+   		$("#showStudents").css("display","block");
+   		$("#showVotes").css("display","none");
+   		$("#showAddAdmin").css("display","none");
    	});
 
-   	$("#showStudents").css("display","block");
-   	$("#showVotes").css("display","none");
-   	$("#showAddAdmin").css("display","none");
-
+   	
 
    });
 
@@ -67,12 +70,25 @@ $(document).ready(function() {
     $('#addAdmin').on('click',function(){
 
    	$("#showStudents").css("display","none");
-   	$("#showVotes").css("display","none");
+   	$("#showVotes").css("display","none"); 
    	$("#showAddAdmin").css("display","block");
 
 
    });
 
+    $(this).on('click','.btnDelete',function(){
+
+    	 var id = $(this).val();
+
+    	console.log("THIS IS THE SHIT!!!!!!!" + id);
+    	
+    	socket.emit('deleteStudent',id);
+
+    	location.reload();
+
+    	
+
+    });
 
 
 

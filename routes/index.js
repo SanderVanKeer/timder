@@ -30,7 +30,22 @@ router.get('/admin', function(req, res) {
 router.post('/admin', function(req, res) {
 	console.log('admin');
 
+	res.redirect("dashboard");
+
 });
+
+/* GET admin page.*/
+router.get('/dashboard', function(req, res) {
+	res.render('dashboard');
+});	
+
+/*post showTheLove page.*/
+
+router.get('/showthelove',function(req, res){
+
+	res.render('showTheLove');
+})
+
 
 
 module.exports = router;

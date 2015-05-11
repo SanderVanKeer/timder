@@ -3,12 +3,14 @@ extends layout
 block content
 
  div.container
-  h1.text-center Make an admin!
+  h1.text-center Log in as an admin!
   div.form-group
    form(method="post", action="/admin")
     label(for = "email") Email:
-    input.form-control(id="email", name="email")
+    input.form-control(id="email", name="email", type="email")
     label(for="password") Password:
     input.form-control(id="password", name="password", type="password")
-    button.btn.btn-default(id="btnAdmin", type="submit") Make admin!  
- script(src="/javascripts/admin.js")   
+    button.btn.btn-default(id="btnAdmin", type="submit") Log in!  
+ script(src="/socket.io/socket.io.js")
+ script(src="/javascripts/admin.js")
+    

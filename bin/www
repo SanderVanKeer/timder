@@ -34,11 +34,107 @@ io.on('connection', function(socket) {
   socket.on('disconnect', function() {
     console.log('user disconnected');
   });
+
+  socket.on('addAdmin', function(newAdmin) {
+    console.log(newAdmin);
+    Admin.create(newAdmin,function(err,newAdmin){
+
+      console.log(newAdmin);
+      console.log('admin saved!! xD');
+    });
+  });
+  socket.on('addStudent',function(newStudent){
+    console.log(newStudent);
+    Student.create(newStudent,function(err,newStudent){
+
+      console.log(newStudent);
+      console.log("new student created");
+    });
+  });
+
+  socket.on("getStudents", function(){
+
+    Student.find().exec(function(err,students){
+
+      socket.emit('listStudents',students);
+    })
+  });
 });
+
+
+
 
 io.on('connect', function(socket) {
   console.log('connected');
 })
+
+/**
+ * ======
+ *   DB
+ * ======
+ */
+
+// dependencies
+var mongoose = require('mongoose');
+var restful = require('node-restful');
+
+// connect
+mongoose.connect('mongodb://localhost/timder');
+
+// models
+var Admin = app.admin = restful.model("Admin",mongoose.Schema({
+
+  email:{
+
+    type:String,
+    required:true
+
+  },
+
+  password:{
+
+    type:String,
+    required:true
+
+  }
+
+
+}, {collection:"admins"})).methods(['get','post','put','delete']);
+Admin.register(app,'/admins');
+
+//student model
+var Student = app.student = restful.model("Student",mongoose.Schema({
+
+  email:{
+
+    type:String,
+    required:true
+
+  },
+
+  firstName:{
+
+    type:String,
+    required:true
+  },
+
+  lastName:{
+
+    type:String,
+    required:true
+  },
+
+  password:{
+
+    type:String,
+    required:true
+
+  }
+
+
+}, {collection:"students"})).methods(['get','post','put','delete']);
+Student.register(app,'/students');
+
 
 /**
  * Listen on provided port, on all network interfaces.

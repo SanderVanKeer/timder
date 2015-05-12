@@ -9,9 +9,6 @@ var express = require('express'),
     LocalStrategy = require('passport-local').Strategy,
     flash = require('connect-flash');
 
-
-var routes = require('./routes/index');
-
 var app = express();
 
 // view engine setup
@@ -43,6 +40,12 @@ mongoose.connect('mongodb://localhost/timder');
 var Company = require('./models/company.js');
 var Student = require('./models/student.js');
 
+/**
+ * ===========
+ *   Session
+ * ===========
+ */
+
 // initializing session
 app.use(session({
   secret: 'weareimdanditsawesome',
@@ -50,21 +53,21 @@ app.use(session({
   saveUninitialized: true
 }));
 
+/**
+ * ============
+ *   Passport
+ * ============
+ */
+
 // initializing passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  Student.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
+var initPassport = require('./passport/init');
+initPassport(passport);
 
 // routes
+var routes = require('./routes/index')(passport);
 app.use('/', routes);
 
 // catch 404 and forward to error handler

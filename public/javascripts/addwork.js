@@ -47,4 +47,14 @@ $(document).ready(function(){
 
 		event.preventDefault();
 	});
+
+	$('#skill').on('change', function() {
+			var skill = $('#skill').val();
+			console.log(skill);
+			return skill;
+	});
+
+	$('submitWork').on('click', function(e) {
+		console.log(skill);
+	});
 });

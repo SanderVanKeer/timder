@@ -41,7 +41,6 @@ io.on('connection', function(socket) {
     console.log('user disconnected');
   });
 
-  // add company
   socket.on('checkCompany', function(newCompany) {
     Company.findOne(newCompany, function(err, existingCompany) {
       if(existingCompany) {
@@ -61,11 +60,35 @@ io.on('connection', function(socket) {
     });
   });
 
-  socket.on('getCompanyInfo', function() {
-    Company.find({_id: '554fcdb98f56a278af9118c5'}).exec(function(company) {
-      socket.emit('showCompanyInfo', company);
+  socket.on('addAdmin', function(newAdmin) {
+    console.log(newAdmin);
+    Admin.create(newAdmin,function(err,newAdmin){
+      console.log(newAdmin);
+      console.log('admin saved!');
     });
   });
+
+  socket.on("getStudents", function(){
+    Student.find().exec(function(err,students) {
+      socket.emit('listStudents',students);
+    });
+  });
+
+  socket.on('deleteStudent',function(data){
+   Student.remove({_id: data}, function(err, b) {
+      if (err) { console.log(err); }
+      console.log("Student with id" +data+ " deleted");
+      io.emit('studentDeleted', b);
+    });
+  });
+
+  socket.on("getMeets", function(){
+    Meet.find().exec(function(err,meets){
+      socket.emit('listMeets',meets);
+    });
+  });
+
+  
 });
 
 io.on('connect', function(socket) {

@@ -6,7 +6,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     session = require('express-session'),
     passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy;
+    LocalStrategy = require('passport-local').Strategy,
+    flash = require('connect-flash');
 
 
 var routes = require('./routes/index');
@@ -24,10 +25,27 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
+
+/**
+ * ============
+ *   Database
+ * ============
+ */
+
+// dependencies
+var mongoose = require('mongoose');
+
+// connect
+mongoose.connect('mongodb://localhost/timder');
+
+// loading models
+var Company = require('./models/company.js');
+var Student = require('./models/student.js');
 
 // initializing session
 app.use(session({
-  secret: 'weareimdanditstinks',
+  secret: 'weareimdanditsawesome',
   resave: true,
   saveUninitialized: true
 }));
@@ -41,7 +59,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
+  Student.findById(id, function(err, user) {
     done(err, user);
   });
 });

@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var passport = require('passport');
 
 var routes = require('./routes/index');
 
@@ -20,9 +21,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-// initializing session
-app.use(session({secret: 'weareimdanditstinks'}));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// initializing session
+app.use(session({
+  secret: 'weareimdanditstinks',
+  resave: true,
+  saveUninitialized: true
+}));
 
 app.use('/', routes);
 

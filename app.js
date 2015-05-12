@@ -1,13 +1,13 @@
-var express = require('express'),
-    path = require('path'),
-    favicon = require('serve-favicon'),
-    logger = require('morgan'),
-    cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser'),
-    session = require('express-session'),
-    passport = require('passport'),
+var express       = require('express'),
+    path          = require('path'),
+    favicon       = require('serve-favicon'),
+    logger        = require('morgan'),
+    cookieParser  = require('cookie-parser'),
+    bodyParser    = require('body-parser'),
+    session       = require('express-session'),
+    passport      = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
-    flash = require('connect-flash');
+    flash         = require('connect-flash');
 
 var app = express();
 

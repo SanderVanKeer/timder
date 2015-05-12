@@ -9,6 +9,7 @@ var debug         = require('debug')('timder:server');
 var http          = require('http');
 var passport      = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var bCrypt        = require('bcrypt-nodejs');
 
 var Company = require('../models/company.js');
 var Student = require('../models/student.js');
@@ -88,7 +89,32 @@ io.on('connection', function(socket) {
     });
   });
 
-  
+  socket.on('changeEmail', function(newEmail) {
+    Student.findOneAndUpdate({_id: newEmail.id}, {email: newEmail.email}, function(err, student) {
+      console.log('email updated'); console.log(student);
+    });
+  });
+
+  socket.on('changePassword', function(newPassword) {
+    // password eerst hashen
+    var hash = bCrypt.hashSync(newPassword.password, bCrypt.genSaltSync(10), null)
+
+    Student.findOneAndUpdate({_id: newPassword.id}, {password: hash}, function(err, student) {
+      console.log('password updated'); console.log(student);
+    });
+  });
+
+  socket.on('changeFirstName', function(newFirstName) {
+    Student.findOneAndUpdate({_id: newFirstName.id}, {firstName: newFirstName.firstName}, function(err, student) {
+      console.log('first name updated'); console.log(student);
+    });
+  });
+
+  socket.on('changeLastName', function(newLastName) {
+    Student.findOneAndUpdate({_id: newLastName.id}, {lastName: newLastName.lastName}, function(err, student) {
+      console.log('last name updated'); console.log(student);
+    });
+  });
 });
 
 io.on('connect', function(socket) {

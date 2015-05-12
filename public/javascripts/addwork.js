@@ -1,33 +1,50 @@
 $(document).ready(function(){
+	var socket = io.connect("http://localhost:3000");
 
-	$('#skill').on('change', function() {
+	$("#submitInfo").on('click',function(event)
+	{
+		var email 		= $('#email').val();
+		var password	= $('#password').val();
+		var firstName = $('#firstName').val();
+		var lastName 	= $('#lastName').val();
+		var userId		= $('#userId').val();
 
-		var value = $('#skill').val();
+		if(email != '') {
+			var changeEmail = {
+				"id": userId,
+				"email": email
+			};
 
-	console.log("was dees:  " + value);
-
-
-		if(value== "design")
-		{
-
-			$("#designCheck").css("display",'block');
-			$("#devCheck").css("display",'none');
-			$("#choice").text("Design");
-
-		}
-		else if(value== "dev"){
-
-			$("#designCheck").css("display",'none');
-			$("#devCheck").css("display",'block');
-			$("#choice").text("Development");
-		}
-		else{
-
-			$("#designCheck").css("display",'none');
-			$("#devCheck").css("display",'none');
-			$("#choice").text("");
+			socket.emit("changeEmail",changeEmail);
 		}
 
-	})
+		if(password != '') {
+			var changePassword = {
+				"id": userId,
+				"password": password
+			};
 
+			socket.emit("changePassword", changePassword);
+		}
+
+		if(firstName != '') {
+			var changeFirstName = {
+				"id": userId,
+				"firstName": firstName
+			};
+
+			socket.emit("changeFirstName",changeFirstName);
+		}
+
+		if(lastName != '') {
+			var changeLastName = {
+				"id": userId,
+				"lastName": lastName
+			};
+
+			socket.emit("changeLastName",changeLastName);
+		}
+
+		event.preventDefault();
+	});
 });

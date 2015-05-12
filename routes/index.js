@@ -1,6 +1,24 @@
 var express = require('express');
 var router = express.Router();
 
+// var isAuthenticated = function (req, res, next) {
+//   // if user is authenticated in the session, call the next() to call the next request handler 
+//   // Passport adds this method to request object. A middleware is allowed to add properties to
+//   // request and response objects
+//   if (req.isAuthenticated()) 
+//   {
+//     return next();
+//   }
+//   else
+//   {
+//     console.log('======== user not authenticated ========')
+//     res.redirect('/login');
+//   }
+  // if the user is not authenticated then redirect him to the login page
+  
+// }
+
+
 module.exports = function(passport){
   /* GET landing page. */ 
   router.get('/', function(req, res, next) {
@@ -44,7 +62,7 @@ module.exports = function(passport){
   });
 
   /* GET addwork page */
-  router.get('/addwork', function(req, res) {
+  router.get('/addwork', /*isAuthenticated,*/ function(req, res) {
     res.render('addwork', {user: req.user})
   });
 
@@ -59,7 +77,7 @@ module.exports = function(passport){
   });
 
   /* GET dasboard page. */
-  router.get('/dashboard', function(req, res){
+  router.get('/dashboard', /*isAuthenticated,*/ function(req, res){
     res.render('dashboard');
   });
 

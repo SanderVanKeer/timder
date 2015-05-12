@@ -16,29 +16,38 @@ router.post('/', function(req, res) {
   console.log('test');
 });
 
-// /* GET login page. */
-// router.get('/login', function(req, res) {
-// 	res.render('login');
-// });
+/* GET login page. */
+router.get('/login', function(req, res) {
+	res.render('login', {message: req.flash('message')});
+});
 
-/* login page */
-router.route('/login')
-  .get(function(req, res, next) {
-    res.render('login');
-  })
-  .post(passport.authenticate('local'), function(req, res) {
-    res.send('testing passport post');
-  })
+/* POST login page */
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/addwork',
+  failureRedirect: '/login',
+  failureFlash : true  
+}));
 
 /* GET signup page. */
 router.get('/signup', function(req, res) {
   res.render('signup');
 });
 
-/* GET swiping page. */
+/* GET letsdate page. */
 router.get('/letsdate', function(req, res) {
   var companyName = req.session.companyName;
 	res.render('letsdate', {companyName: companyName});
+});
+
+/* GET addwork page */
+router.get('/addwork', function(req, res, next) {
+  res.render('addwork', {user: req.user})
+});
+
+/* Handle Logout */
+router.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
 });
 
 module.exports = router;

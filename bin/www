@@ -4,9 +4,15 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('timder:server');
-var http = require('http');
+var app           = require('../app');
+var debug         = require('debug')('timder:server');
+var http          = require('http');
+var passport      = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
+var Company = require('../models/company.js');
+var Student = require('../models/student.js');
+var Admin   = require('../models/admin.js');
 
 /**
  * Get port from environment and store in Express.
@@ -34,17 +40,68 @@ io.on('connection', function(socket) {
   socket.on('disconnect', function() {
     console.log('user disconnected');
   });
+
+  socket.on('checkCompany', function(newCompany) {
+    Company.findOne(newCompany, function(err, existingCompany) {
+      if(existingCompany) {
+        console.log('company "' + existingCompany.name + '" already exists.');
+        socket.emit('companyExists', existingCompany);
+      } else {
+        console.log('company "' + newCompany.name + '" is available.');
+        io.emit('companyAvailable', newCompany);
+      }
+    });
+  });
+
+  socket.on('addCompany', function(newCompany) {
+    Company.create(newCompany, function(err, newCompany) {
+      console.log('company "' + newCompany.name + '" saved.');
+      console.log(newCompany);
+    });
+  });
+
+  socket.on('addAdmin', function(newAdmin) {
+    console.log(newAdmin);
+    Admin.create(newAdmin,function(err,newAdmin){
+      console.log(newAdmin);
+      console.log('admin saved!');
+    });
+  });
+
+  socket.on("getStudents", function(){
+    Student.find().exec(function(err,students) {
+      socket.emit('listStudents',students);
+    });
+  });
+
+  socket.on('deleteStudent',function(data){
+   Student.remove({_id: data}, function(err, b) {
+      if (err) { console.log(err); }
+      console.log("Student with id" +data+ " deleted");
+      io.emit('studentDeleted', b);
+    });
+  });
+
+  socket.on("getMeets", function(){
+    Meet.find().exec(function(err,meets){
+      socket.emit('listMeets',meets);
+    });
+  });
+
+  
 });
 
 io.on('connect', function(socket) {
-  console.log('connected');
-})
+
+});
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port, function() {
+  console.log("The magic is happening on http://localhost:3000");
+});
 server.on('error', onError);
 server.on('listening', onListening);
 

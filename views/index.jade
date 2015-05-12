@@ -1,21 +1,21 @@
-html
-  head
-    link(rel='stylesheet', href='/stylesheets/index.css')
-    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
-    block content
-      div.background
-       div.containerHome
-        img(src="/images/timderlogo.png", alt="")
+extends layout
 
+head
+  link(rel="stylesheet", href="/stylesheets/index.css")
+body
+  block content
+    div.container
+      h1.text-center TIMDER
 
-        div.form-group
-         label(for="companyName") Your company name
-         input.form-control(type="text", name="companyName", id="companyName", placeholder="Thomas More")
-         a.btn.btn-primary(id="startSwiping", href="/swiping") Start swiping!
+      form(action="/", method="post")
+        label(for="companyName") Your company name
+        input.form-control(type="text", name="companyName", id="companyName", placeholder="Thomas More", autofocus)
+        div.alert(style="display: none;")
+        input.btn.btn-primary#startSwiping(type="submit", value="Start swiping!")
 
-         p Are you a student?
-         a.btn.btn-default(id="login",href="/login") Log in here!
+      p Are you a student?
+      a.btn.btn-default(href="/login") Log in
+      a.btn.btn-default(href="/signup") Sign up
 
-      script(src="/socket.io/socket.io.js")
-      script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
-      script(src="/javascripts/index.js")
+    script(src="/socket.io/socket.io.js")
+    script(src="/javascripts/index.js")

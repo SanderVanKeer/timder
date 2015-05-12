@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  div.container
+    h1.text-center Welcome #{companyName}
+
+    //- span Swipe left to like, right to skip!
+
+    div.jumbotron
+      div.profile
+        img.img-responsive#profilePic(src="/images/ik.jpg", style="max-width: 400px; max-height: 400px;")
+        //- if choice = develop
+        span He likes to develop
+
+        ul#skills
+          //- loop over skills images
+          li
+            img#skill1(src="/images/dev/js5logo.png")
+          li
+            img#skill2(src="/images/dev/js5logo.png")
+          li
+            img#skill3(src="/images/dev/js5logo.png")
+
+
+  
+  script(src="/socket.io/socket.io.js")
+  script(src="/javascripts/letsdate.js")

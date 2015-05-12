@@ -44,13 +44,13 @@ module.exports = function(passport){
               console.log('Error in Saving user: '+err);
               throw err;  
             }
-            console.log('User Registration succesful');
+            console.log('User Registration successful');
             return done(null, newStudent);
           });
         }
       });
     };
-    
+
     // Delay the execution of findOrCreateUser and execute the method
     // in the next tick of the event loop
     process.nextTick(findOrCreateStudent);

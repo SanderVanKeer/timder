@@ -39,7 +39,7 @@ router.get('/dashboard', function(req, res) {
 	res.render('dashboard');
 });	
 
-/*post showTheLove page.*/
+/*get showTheLove page.*/
 
 router.get('/showthelove',function(req, res){
 

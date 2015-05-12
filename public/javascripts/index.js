@@ -32,4 +32,14 @@ $(document).ready(function() {
       });
     }
   });
+
+  $('#addStudent').on('click', function() {
+    console.log('geklikt');
+    var student = {
+      email: "mathijsvandenbroeck@gmail.com",
+      password: "test"
+    };
+
+    socket.emit('addStudent', student);
+  });
 });

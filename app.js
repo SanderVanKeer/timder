@@ -46,10 +46,10 @@ app.get('/',function(req,res){
       res.sendfile("addwork.jade");
 });
 
-app.post('/api/photo',function(req,res){
+app.post('/index',function(req,res){
   if(done==true){
     console.log(req.files);
-    console.log("File uploaded.");
+    res.render("index.jade");
   }
 });
 

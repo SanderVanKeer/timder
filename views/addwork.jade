@@ -69,7 +69,7 @@ block content
       input#php(type="checkbox")
       |PHP 
 
-   form#uploadForm(enctype="multipart/form-data", action = "/api/photo", method="post")
+   form#uploadForm(enctype="multipart/form-data", action = "/index", method="post")
     input(type="file", name="userPhoto")
     input.btn.btn-primary(type="submit", value="Update!", name="submit") 
   script(src="/socket.io/socket.io.js")

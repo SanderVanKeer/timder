@@ -7,6 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('timder:server');
 var http = require('http');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 /**
  * Get port from environment and store in Express.
@@ -58,13 +60,47 @@ io.on('connection', function(socket) {
   socket.on('getCompanyInfo', function() {
     Company.find({_id: '554fcdb98f56a278af9118c5'}).exec(function(company) {
       socket.emit('showCompanyInfo', company);
-    })
-  })
+    });
+  });
+
+  socket.on('addStudent', function(student) {
+    Student.create(student, function(err, student) {
+      console.log(student + " created!");
+    });
+  });
 });
 
 io.on('connect', function(socket) {
 
 });
+
+// configuring passport
+passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+  },
+  function(username, password, done) {
+    Student.findOne({ email: username }, function (err, user) {
+      if (err)
+      {
+        return done(err); 
+      }
+      if (!user)
+      {
+        return done(null, false, { message: 'Incorrect email.' });
+      }
+      if (user.password != password)
+      {
+        return done(null, false, { message: 'Invalid password' });
+      }
+      return done(null, user);
+    });
+  }
+));
+
+var isValidPassword = function(user, password){
+    return bCrypt.compareSync(password, user.password);
+};
 
 /**
  * ======
@@ -88,6 +124,17 @@ var Company = app.company = restful.model('Company', mongoose.Schema({
 }, {collection: 'companies'})).methods(['get', 'post', 'put', 'delete']);
 Company.register(app, '/companies');
 
+var Student = app.student = restful.model('Student', mongoose.Schema({
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  }
+}, {collection: 'students'})).methods(['get', 'post', 'put', 'delete']);
+Student.register(app, '/student');
 
 /**
  * Listen on provided port, on all network interfaces.

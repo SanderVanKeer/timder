@@ -165,6 +165,7 @@ var Student = app.student = restful.model("Student",mongoose.Schema({
   }
 
 
+
 }, {collection:"students"})).methods(['get','post','put','delete']);
 Student.register(app,'/students');
 

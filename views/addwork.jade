@@ -1,7 +1,33 @@
 extends layout
 
 block content
-  h1 Welcome #{user.email}
+  div.container
+    h1.text-center Welcome #{user.firstName}
+    h2.text-center Update your data!
+    form(role="form")
+      div.form-group
+        label(for="email") Email
+        input.form-control#email(type="email", placeholder="Email")
+      div.form-group
+        label(for="firstName") Firstname
+        input.form-control#firstName(type="text", placeholder="Firstname")
+      div.form-group
+        label(for="laststName") Lastname
+        input.form-control#laststName(type="text", placeholder="Lastname")
 
-  a(href="/logout") log out
+    form#uploadForm(enctype="multipart/form-data", action = "/index", method="post")
+      input(type="file", name="userPhoto")
+      input(type="file", name="userPhoto")
+      input(type="file", name="userPhoto")
+      input.btn.btn-primary(type="submit", value="Update!", name="submit")
+  
+    a.text-center(href="/logout") log out
 
+  script(src="/socket.io/socket.io.js")
+  script(src="/javascripts/addwork.js")
+
+
+
+    
+
+    

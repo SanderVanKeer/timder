@@ -1,21 +1,25 @@
-extends layout
+html
+ head
+  link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+  link(rel='stylesheet', href='/stylesheets/index.css')
 
-head
-  link(rel="stylesheet", href="/stylesheets/index.css")
-body
+  title tIMDer
+ body
   block content
     div.container
-      h1.text-center TIMDER
+      img.text-center(src="/images/timderlogo.png")
 
       form(action="/", method="post")
         label(for="companyName") Your company name
         input.form-control(type="text", name="companyName", id="companyName", placeholder="Thomas More", autofocus)
         div.alert(style="display: none;")
         input.btn.btn-primary#startSwiping(type="submit", value="Start swiping!")
-
+      
       p Are you a student?
-      a.btn.btn-default(href="/login") Log in
-      a.btn.btn-default(href="/signup") Sign up
-
+      div#buttons
+       a.btn.btn-default(href="/login") Log in
+       a.btn.btn-default(href="/signup") Sign up
+      a(href="/admin") Log in als admin
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js")
     script(src="/socket.io/socket.io.js")
     script(src="/javascripts/index.js")

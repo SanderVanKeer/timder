@@ -6,6 +6,11 @@ block content
     h2.text-center Update your data!
 
     form#uploadForm(enctype="multipart/form-data", action="/addwork", method="post")
+      label(for="skill") What are you best at?
+      select#skill(name="skill")
+        option(value="Development") Development
+        option(value="Design") Design
+
       input(type="file", name="work1")
       input(type="file", name="work2")
       input(type="file", name="work3")

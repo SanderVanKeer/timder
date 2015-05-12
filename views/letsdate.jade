@@ -2,25 +2,25 @@ extends layout
 
 block content
   div.container
+    img(src="/images/timderlogo.png", style="width: 20%; height: 20%;")
     h1.text-center Welcome #{companyName}
 
     //- span Swipe left to like, right to skip!
 
+
+
     div.jumbotron
       div.profile
-        img.img-responsive#profilePic(src="/images/ik.jpg", style="max-width: 400px; max-height: 400px;")
-        //- if choice = develop
-        span He likes to develop
+        h2.text-center#studentName
+        h3.text-center#studentSkill
 
-        ul#skills
-          //- loop over skills images
-          li
-            img#skill1(src="/images/dev/js5logo.png")
-          li
-            img#skill2(src="/images/dev/js5logo.png")
-          li
-            img#skill3(src="/images/dev/js5logo.png")
+        div.works(style="width: 960px; margin: 0 auto;")
+          img.img-responsive#work1(src="", style="max-width: 320px; max-height: 320px; display: inline;")
+          img.img-responsive#work2(src="", style="max-width: 320px; max-height: 320px; display: inline;")
+          img.img-responsive#work3(src="", style="max-width: 320px; max-height: 320px; display: inline;")
 
+    btn.btn.btn-lg.btn-danger Dislike
+    btn.btn.btn-lg.btn-success Like
 
   
   script(src="/socket.io/socket.io.js")

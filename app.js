@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
+var multer = require('multer');
+var done = false;
 
 var app = express();
 
@@ -22,6 +24,35 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+
+/*configuring multer*/
+
+app.use(multer({ dest: 'public/images/uploads/',
+ rename: function (fieldname, filename) {
+    return filename+Date.now();
+  },
+onFileUploadStart: function (file) {
+  console.log(file.originalname + ' is starting ...')
+},
+onFileUploadComplete: function (file) {
+  console.log(file.fieldname + ' uploaded to  ' + file.path)
+  done=true;
+}
+}))
+
+// Multer route
+
+app.get('/',function(req,res){
+      res.sendfile("addwork.jade");
+});
+
+app.post('/api/photo',function(req,res){
+  if(done==true){
+    console.log(req.files);
+    console.log("File uploaded.");
+  }
+});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -67,6 +67,10 @@ block content
       |jQuery
      label(for="php")
       input#php(type="checkbox")
-      |PHP    
+      |PHP 
+
+   form#uploadForm(enctype="multipart/form-data", action = "/api/photo", method="post")
+    input(type="file", name="userPhoto")
+    input.btn.btn-primary(type="submit", value="Update!", name="submit") 
   script(src="/socket.io/socket.io.js")
   script(src="/javascripts/addwork.js")

@@ -46,6 +46,12 @@ router.get('/showthelove',function(req, res){
 	res.render('showTheLove');
 })
 
+/*get addwork page*/
+
+router.get('/addwork',function(req, res){
+
+	res.render('addwork');
+})
 
 
 module.exports = router;

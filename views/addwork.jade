@@ -1,0 +1,72 @@
+extends layout
+
+block content
+  div.container
+   h1.text-center Update your data! 
+   form(role="form")
+    div.form-group
+     label(for="email") Email
+     input.form-control#email(type="email", placeholder="Email")
+    div.form-group
+     label(for="firstName") Firstname
+     input.form-control#firstName(type="text", placeholder="Firstname")
+    div.form-group
+     label(for="laststName") Lastname
+     input.form-control#laststName(type="text", placeholder="Lastname")
+    label(for="skill") Skill   
+    select.dropdown#skill
+     option Make your choice
+     option(value="design") Design
+     option(value="dev") Development
+
+    h3#choice  
+    div.radio#designCheck(style="display:none;")
+     label(for="illustrator")
+      input#illustrator(type="checkbox")
+      |Illustrator
+     label(for="photoshop")
+      input#photoshop(type="checkbox")
+      |Photoshop
+     label(for="afterEffects")
+      input#afterEffects(type="checkbox")
+      |After Effects
+     label(for="indesign")
+      input#indesign(type="checkbox")
+      |Indesign
+     label(for="sketch")
+      input#sketch(type="checkbox")
+      |Sketch
+     label(for="gimp")
+      input#gimp(type="checkbox")
+      |Gimp
+     label(for="paintNet")
+      input#paintNet(type="checkbox")
+      |paint.net  
+
+    div.radio#devCheck(style="display:none;")
+     label(for="html")
+      input#html(type="checkbox")
+      |HTML5
+     label(for="css3")
+      input#css3(type="checkbox")
+      |CSS3
+     label(for="Javascript")
+      input#Javascript(type="checkbox")
+      |Javascript
+     label(for="Nodejs")
+      input#Nodejs(type="checkbox")
+      |Nodejs
+     label(for="AngularJs")
+      input#AngularJs(type="checkbox")
+      |AngularJs
+     label(for="mysql")
+      input#mysql(type="checkbox")
+      |MySQL
+     label(for="jquery")
+      input#jquery(type="checkbox")
+      |jQuery
+     label(for="php")
+      input#php(type="checkbox")
+      |PHP    
+  script(src="/socket.io/socket.io.js")
+  script(src="/javascripts/addwork.js")

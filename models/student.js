@@ -7,5 +7,6 @@ module.exports = mongoose.model('Student',{
   lastName: String,
   work1: String,
   work2: String, 
-  work3: String
+  work3: String,
+  skill: String
 });

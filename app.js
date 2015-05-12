@@ -7,7 +7,9 @@ var express       = require('express'),
     session       = require('express-session'),
     passport      = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
-    flash         = require('connect-flash');
+    flash         = require('connect-flash'),
+    multer        = require('multer'),
+    done          = false;
 
 var app = express();
 
@@ -70,6 +72,39 @@ initPassport(passport);
 var routes = require('./routes/index')(passport);
 app.use('/', routes);
 
+/**
+ * ==========
+ *   Multer
+ * ==========
+ */
+
+// configuring multer
+app.use(multer({ dest: 'public/images/uploads/',
+ rename: function (fieldname, filename) {
+    return filename+Date.now();
+  },
+  onFileUploadStart: function (file) {
+    console.log(file.originalname + ' is starting ...')
+  },
+  onFileUploadComplete: function (file) {
+    console.log(file.fieldname + ' uploaded to  ' + file.path)
+    done=true;
+  }
+}));
+
+// Multer route
+app.get('/',function(req,res){
+  res.sendfile("addwork.jade");
+});
+
+app.post('/index',function(req,res){
+  if(done==true){
+    console.log(req.files);
+    res.render("index.jade");
+  }
+});
+
+// ============================== EXPRESS CODE ==============================
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -100,6 +135,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;

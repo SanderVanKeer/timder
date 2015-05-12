@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  div.container
+    h1.text-center Here is where we show the love
+    div#dateContainer 
+      ul.list-group#dateList
+
+  script(src="/socket.io/socket.io.js")
+  script(src="/javascripts/showTheLove.js")

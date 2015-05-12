@@ -1,0 +1,30 @@
+extends layout
+
+block content
+ div.container
+  h1.text-center Welcome to your dashboard
+
+  h2.text-center Choose your function
+  
+  ul.list-group  
+   button.list-group-item(id="students") Students
+   button.list-group-item(id= "votes") Votes
+   button.list-group-item(id="addAdmin") Add Admin 
+
+  div(id="showStudents" style="display:block;")
+   ul.list-group#listStudents
+  div(id="showVotes",style="display:none;")  
+   h1.text-center Votes was clicked
+
+  div(id="showAddAdmin",style="display:none;") 
+   h1.text-center Make an admin!
+   div.form-group
+    form
+     label(for = "email") Email:
+     input.form-control(id="email", name="email", type="email", autofocus)
+     label(for="password") Password:
+     input.form-control(id="password", name="password", type="password")
+     button.btn.btn-default(id="btnAdmin", type="submit") Make admin!
+     
+ script(src="/socket.io/socket.io.js")
+ script(src="/javascripts/admin.js")

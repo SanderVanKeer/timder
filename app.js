@@ -41,6 +41,7 @@ mongoose.connect('mongodb://localhost/timder');
 // loading models
 var Company = require('./models/company.js');
 var Student = require('./models/student.js');
+var Admin   = require('./models/admin.js');
 
 /**
  * ===========
@@ -92,16 +93,43 @@ app.use(multer({ dest: 'public/images/uploads/',
   }
 }));
 
-// Multer route
-app.get('/',function(req,res){
-  res.sendfile("addwork.jade");
-});
+app.post('/addwork', function(req, res) {
+  if(done==true) {
+    var userId = req.user._id;
 
-app.post('/index',function(req,res){
-  if(done==true){
-    console.log(req.files);
-    res.render("index.jade");
+    if(req.files.work1) {
+      var path1 = req.files.work1.path;
+      var work1 = path1.replace('public', '');
+    } else {
+      var work1 = '';
+    }
+
+    if(req.files.work2) {
+      var path2 = req.files.work2.path;
+      var work2 = path2.replace('public', '');
+    } else {
+      var work2 = '';
+    }
+
+    if(req.files.work3) {
+      var path3 = req.files.work3.path;
+      var work3 = path3.replace('public', '');
+    } else {
+      var work3 = '';
+    }
+
+    var works = {
+      "work1": work1,
+      "work2": work2,
+      "work3": work3
+    }
+
+    Student.findOneAndUpdate({_id: userId}, works, function(err, student) {
+      console.log(student);
+    });
   }
+
+  res.redirect('addwork');
 });
 
 // ============================== EXPRESS CODE ==============================

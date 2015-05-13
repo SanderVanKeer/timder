@@ -14,6 +14,7 @@ var bCrypt        = require('bcrypt-nodejs');
 var Company = require('../models/company.js');
 var Student = require('../models/student.js');
 var Admin   = require('../models/admin.js');
+var Meet    = require('../models/meet.js');
 
 /**
  * Get port from environment and store in Express.
@@ -79,13 +80,19 @@ io.on('connection', function(socket) {
    Student.remove({_id: data}, function(err, b) {
       if (err) { console.log(err); }
       console.log("Student with id" +data+ " deleted");
-      io.emit('studentDeleted', b);
     });
   });
 
   socket.on("getMeets", function(){
     Meet.find().exec(function(err,meets){
-      socket.emit('listMeets',meets);
+      io.sockets.emit('listMeets', meets);
+    });
+  });
+
+  socket.on('deleteMeet',function(data){
+   Meet.remove({_id: data}, function(err, b) {
+      if (err) { console.log(err); }
+      console.log("Student with id" +data+ " deleted");
     });
   });
 
@@ -115,6 +122,62 @@ io.on('connection', function(socket) {
       console.log('last name updated'); console.log(student);
     });
   });
+
+
+  socket.on('meet',function(meet){
+
+      Meet.create(meet,function(err, newMeet){
+
+        console.log(newMeet);
+
+      });
+
+  });
+
+// socket.on('firstMeet', function(firstMeet) {
+//     Meet.findOne({companyName: firstMeet.companyName}, function(err, meet) {
+//       if(!meet)
+//       {
+//         Meet.create(firstMeet, function(err, newMeet) {
+//           console.log(newMeet);
+//         });
+//       } else {
+//         Meet.findOneAndUpdate({companyName: meet.companyName}, {student1: firstMeet.student}, function(err, updatedMeet1) {
+//           console.log('meet updated: ' + updatedMeet1);
+//         });
+//       }
+//     });
+//   });
+//   socket.on('secondMeet', function(secondMeet) {
+//     Meet.findOne({companyName: secondMeet.companyName}, function(err, meet) {
+//       if(!meet)
+//       {
+//         Meet.create(secondMeet, function(err, newMeet) {
+//           console.log(newMeet);
+//         });
+//       } else {
+//         Meet.findOneAndUpdate({companyName: meet.companyName}, {student2: secondMeet.student}, function(err, updatedMeet2) {
+//           console.log('meet updated: ' + updatedMeet2);
+//         });
+//       }
+//     });
+//   });
+
+//   socket.on('thirdMeet', function(thirdMeet) {
+//     Meet.findOne({companyName: thirdMeet.companyName}, function(err, meet) {
+//       if(!meet)
+//       {
+//         Meet.create(thirdMeet, function(err, newMeet) {
+//           console.log(newMeet);
+//         });
+//       } else {
+//         Meet.findOneAndUpdate({companyName: meet.companyName}, {student3: thirdMeet.student}, function(err, updatedMeet3) {
+//           console.log('meet updated: ' + updatedMeet3);
+//         });
+//       }
+//     });
+//   });
+
 });
 
 io.on('connect', function(socket) {

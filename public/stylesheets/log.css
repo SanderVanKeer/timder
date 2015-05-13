@@ -1,0 +1,36 @@
+body {
+  background-image: url("../images/bgp.png");
+  color: #730A09; }
+
+img {
+  height: 25%; }
+
+#logo {
+  margin-left: auto;
+  margin-right: auto;
+  width: 42%;
+  margin-top: 15px; }
+
+.login {
+  padding-top: 70px;
+  display: block;
+  width: 400px;
+  margin-right: auto;
+  margin-left: auto; }
+
+.form-control {
+  width: 75%; }
+
+form {
+  padding-top: 15px; }
+
+#submit {
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%;
+  margin-top: 15px; }
+
+#login, #submitWork {
+  margin-top: 15px; }
+
+/*# sourceMappingURL=log.css.map */

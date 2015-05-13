@@ -1,0 +1,69 @@
+$primaryColor: #730A09;
+
+body
+{
+	background-image:url("../images/bg.jpg");
+	    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+	color:$primaryColor;
+}
+
+.background {
+	background-color: rgba(255, 255, 255, 0.8);
+	height: 90vh;
+
+}
+
+img {
+	height: 25%;
+}
+
+#logo
+{
+	margin-left: auto;
+	margin-right: auto;
+	width:30%;
+	margin-top: 15px;
+}
+
+.form-control
+{
+	width:75%;
+}
+
+
+
+form 
+{
+	padding-top:15px;
+}
+
+#submit
+{
+	margin-left: auto;
+	margin-right: auto;
+	width:20%;
+	margin-top: 15px;	
+}
+
+#login, #submitWork
+{
+	margin-top: 15px;
+}
+
+#like,#dislike {
+	margin-top: 15px;
+	margin-left: 10px;
+	width:80px;
+	margin-bottom:-30px;
+}
+
+#limit
+{
+	font-size:150%;
+	color:red;
+}

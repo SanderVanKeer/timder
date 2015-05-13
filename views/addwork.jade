@@ -1,42 +1,47 @@
-extends layout
+html
+  head
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/stylesheets/log.css")
+  body
+    block content
+      div.container
+        h1.text-center Welcome #{user.firstName}
+        h2.text-center Update your data!
 
-block content
-  div.container
-    h1.text-center Welcome #{user.firstName}
-    h2.text-center Update your data!
+        div.login
+          form#uploadForm(enctype="multipart/form-data", action="/addwork", method="post")
+            label(for="skill") What are you best at?
+            select#skill(name="skill")
+              option(value="Development") Development
+              option(value="Design") Design
 
-    form#uploadForm(enctype="multipart/form-data", action="/addwork", method="post")
-      label(for="skill") What are you best at?
-      select#skill(name="skill")
-        option(value="Development") Development
-        option(value="Design") Design
+            input(type="file", name="work1")
+            input(type="file", name="work2")
+            input(type="file", name="work3")
+            input.btn.btn-primary#submitWork(type="submit", value="Update!")
 
-      input(type="file", name="work1")
-      input(type="file", name="work2")
-      input(type="file", name="work3")
-      input.btn.btn-primary#submitWork(type="submit", value="Update!")
+          form
+            div.form-group
+              label(for="email") Email
+              input.form-control#email(type="email", placeholder="Email")
+            div.form-group
+              label(for="password") Password
+              input.form-control#password(type="password", placeholder="Password")
+            div.form-group
+              label(for="firstName") Firstname
+              input.form-control#firstName(type="text", placeholder="Firstname")
+            div.form-group
+              label(for="lastName") Lastname
+              input.form-control#lastName(type="text", placeholder="Lastname")
+            div.form-group
+              input#userId(type="text", value="#{user._id}", style="display: none;")
+            input.btn.btn-primary#submitInfo(value="Update user information")
 
-    form
-      div.form-group
-        label(for="email") Email
-        input.form-control#email(type="email", placeholder="Email")
-      div.form-group
-        label(for="password") Password
-        input.form-control#password(type="password", placeholder="Password")
-      div.form-group
-        label(for="firstName") Firstname
-        input.form-control#firstName(type="text", placeholder="Firstname")
-      div.form-group
-        label(for="lastName") Lastname
-        input.form-control#lastName(type="text", placeholder="Lastname")
-      div.form-group
-        input#userId(type="text", value="#{user._id}", style="display: none;")
-      input.btn.btn-primary#submitInfo(value="Update user information")
-
-    a.text-center(href="/logout") log out
-
-  script(src="/socket.io/socket.io.js")
-  script(src="/javascripts/addwork.js")
+          a.text-center(href="/logout") log out
+      
+      script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
+      script(src="/socket.io/socket.io.js")
+      script(src="/javascripts/addwork.js")
 
 
 

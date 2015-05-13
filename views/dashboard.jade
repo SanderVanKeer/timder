@@ -1,30 +1,39 @@
-extends layout
+html
+  head
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/stylesheets/admin.css")
+  body
+    block content
+      div.container
+        h1.text-center Welcome to your dashboard
 
-block content
- div.container
-  h1.text-center Welcome to your dashboard
+        h2 Choose your function
 
-  h2.text-center Choose your function
-  
-  ul.list-group  
-   button.list-group-item(id="students") Students
-   button.list-group-item(id= "votes") Votes
-   button.list-group-item(id="addAdmin") Add Admin 
+        div.btn-group.btn-group-justified(role="group")
+          div.btn-group(role="group")
+            button.btn.btn-default.btn-block.active(id="students", style="width: 100%;") Show students
+          div.btn-group(role="group")
+            button.btn.btn-default.btn-block(id="meets", style="width: 100%") Show meets
+          div.btn-group(role="group")
+            button.btn.btn-default.btn-block(id="addAdmin", style="width: 100%") Add admin
 
-  div(id="showStudents" style="display:block;")
-   ul.list-group#listStudents
-  div(id="showVotes",style="display:none;")  
-   h1.text-center Votes was clicked
+        div(id="showStudents" style="display:block;")
+          h2 Students
+          ul.list-unstyled#listStudents
 
-  div(id="showAddAdmin",style="display:none;") 
-   h1.text-center Make an admin!
-   div.form-group
-    form
-     label(for = "email") Email:
-     input.form-control(id="email", name="email", type="email", autofocus)
-     label(for="password") Password:
-     input.form-control(id="password", name="password", type="password")
-     button.btn.btn-default(id="btnAdmin", type="submit") Make admin!
-     
- script(src="/socket.io/socket.io.js")
- script(src="/javascripts/admin.js")
+        div(id="showMeets",style="display:none;")
+          h2 Meets
+          ul.list-unstyled#listMeets
+
+        div(id="showAddAdmin",style="display:none;")
+          h2 Make a new admin
+          div.form-group
+            form(method='post', action="")
+              label(for = "username") Username
+              input.form-control(id="username", name="username", type="text", autofocus)
+              label(for="password") Password
+              input.form-control(id="password", name="password", type="password")
+              button.btn.btn-default(id="btnAdmin", type="submit") Make admin!
+         
+      script(src="/socket.io/socket.io.js")
+      script(src="/javascripts/dashboard.js")

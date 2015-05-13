@@ -1,27 +1,31 @@
-extends layout
+html
+  head
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/stylesheets/swipe.css")
+  body
+    block content
+      div.container
+        div.background
+          div#logo
+            img(src="/images/timderlogo.png")
+     
+          h1.text-center Welcome 
+            span#companyName #{companyName}
 
-block content
-  div.container
-    img(src="/images/timderlogo.png", style="width: 20%; height: 20%;")
-    h1.text-center Welcome #{companyName}
+          div.profile
+            h2.text-center#studentName
+            h3.text-center#studentSkill
 
-    //- span Swipe left to like, right to skip!
+            div.works(style="width: 960px; margin: 0 auto;")
+              img.img-responsive#work1(src="", style="max-width: 320px; max-height: 320px; display: inline;")
+              img.img-responsive#work2(src="", style="max-width: 320px; max-height: 320px; display: inline;")
+              img.img-responsive#work3(src="", style="max-width: 320px; max-height: 320px; display: inline;")
+          div.rating(style="width:20%;margin: 0 auto;")
+            p.text-center#limit(style="display:none;") You have reached the voting limit!
+            btn.text-center.btn.btn-lg.btn-danger#dislike Dislike
+            btn.btn.btn-lg.btn-success#like Like
+            a.btn.btn-lg.btn-primary#home(style="display:none;", href="/") Start over!!
 
-
-
-    div.jumbotron
-      div.profile
-        h2.text-center#studentName
-        h3.text-center#studentSkill
-
-        div.works(style="width: 960px; margin: 0 auto;")
-          img.img-responsive#work1(src="", style="max-width: 320px; max-height: 320px; display: inline;")
-          img.img-responsive#work2(src="", style="max-width: 320px; max-height: 320px; display: inline;")
-          img.img-responsive#work3(src="", style="max-width: 320px; max-height: 320px; display: inline;")
-
-    btn.btn.btn-lg.btn-danger Dislike
-    btn.btn.btn-lg.btn-success Like
-
-  
-  script(src="/socket.io/socket.io.js")
-  script(src="/javascripts/letsdate.js")
+      script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
+      script(src="/socket.io/socket.io.js")
+      script(src="/javascripts/letsdate.js")

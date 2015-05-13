@@ -1,21 +1,28 @@
-extends layout
+html
+  head
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/stylesheets/log.css")
+  body
+    block content
+      div.container
+        div#logo
+          a(href="/")
+            img(src="/images/timderlogo.png")
 
-block content
-  div.container
-    a(href="/") Back to home
+        div.login
+          h1 Log in as a student
 
-    h1.text-center Log in
+          form(action="/login", method="post")
+            label(for="email") Email
+            input.form-control(type='text', name='email', id="email", autofocus)
+            label(for="password") Password
+            input.form-control(type='password', name='password', id="password")
+            if message
+              div(style="color: red") #{message}
+            button.btn.btn-primary#login(type='submit') Log in
 
-    form(action="/login", method="post")
-      label(for="email") Email
-      input.form-control(type='text', name='email', id="email", autofocus)
-      label(for="password") Password
-      input.form-control(type='password', name='password', id="password")
-      if message
-        div(style="color: red") #{message}
-      button.btn.btn-primary(type='submit') Log in
-
-    p Need an acount?
-    a.btn.btn-default(href='/signup') Sign up here
-
-  script(src="/socket.io/socket.io.js")
+          p Need an acount?
+          a.btn.btn-default(href='/signup') Sign up here
+      
+      script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
+      script(src="/socket.io/socket.io.js")
